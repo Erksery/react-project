@@ -2,3 +2,27 @@
     margin: 10px;
     padding: 5px;
 }
+
+button{
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+button:active{
+    color: white;
+    background-color: black;
+}
+
+input{
+    border: solid 2px lightgray;
+    border-radius: 5px;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+    background-color: rgba(224, 224, 224, 0.51);
+    border-radius: 5px;
+    padding: 10px;
+}

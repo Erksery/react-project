@@ -6,6 +6,7 @@ import RegisterPage from "./Pages/RegisterPage";
 import { getDatabase, ref, set } from "firebase/database";
 import { New } from "./Components/New";
 import { NewPeople } from "./Components/NewPeople";
+import { ListBooksTaken } from "./Components/ListBooksTaken";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/books" element={<New />} />
       <Route path="/people" element={<NewPeople />} />
+      <Route path="/booksTaken" element={<ListBooksTaken />} />
     </Routes>
   );
 }

@@ -16,6 +16,7 @@ export const New = () => {
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
+  const [numberCopies, setNumberCopies] = useState("");
 
   const [data, setData] = useState([]);
 
@@ -26,6 +27,7 @@ export const New = () => {
       author: { author },
       publisher: { publisher },
       publicationYear: { publicationYear },
+      numberCopies: { numberCopies },
       timeStamp: serverTimestamp(),
     });
     setData([
@@ -36,11 +38,12 @@ export const New = () => {
         author: { author },
         publisher: { publisher },
         publicationYear: { publicationYear },
+        numberCopies: { numberCopies },
         timeStamp: serverTimestamp(),
       },
     ]);
     // console.log(111, res);
-    console.log(res._key.path.length);
+    // console.log(res._key.path.length);
   };
 
   const handleDelete = async (id) => {
@@ -62,11 +65,6 @@ export const New = () => {
     };
     fetchData();
   }, []);
-
-  // for (let item of data) {
-  //   // console.log(item.id);
-  //   console.log(item);
-  // }
 
   return (
     <div>
@@ -96,6 +94,12 @@ export const New = () => {
           onChange={(e) => setPublicationYear(e.target.value)}
           placeholder="Год издания"
         />
+        <input
+          type="number"
+          value={numberCopies}
+          onChange={(e) => setNumberCopies(e.target.value)}
+          placeholder="Число экземпляров"
+        />
 
         <button type="submit">Добавить</button>
       </form>
@@ -107,7 +111,7 @@ export const New = () => {
           <button onClick={() => handleDelete(item.id)}>Удалить</button>
         </div>
       ))}
-
+      <h3>Число добавленных книг: {data.length}</h3>
       <Link to={"/"}>Главная</Link>
     </div>
   );

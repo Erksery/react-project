@@ -50,7 +50,7 @@ export const NewPeople = () => {
       },
     ]);
     // console.log(111, res);
-    console.log(res._key.path.length);
+    // console.log(res._key.path.length);
   };
 
   const handleDelete = async (id) => {
@@ -139,6 +139,7 @@ export const NewPeople = () => {
           <button onClick={() => handleDelete(item.id)}>Удалить</button>
         </div>
       ))}
+      <h3>Количество зарегистрированых посетителей: {data.length}</h3>
       <Link to={"/"}>Главная</Link>
     </div>
   );

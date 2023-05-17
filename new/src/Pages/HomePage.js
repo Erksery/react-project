@@ -26,6 +26,7 @@ const HomePage = () => {
           </button>
           <Link to={"/books"}>Книги</Link>
           <Link to={"/people"}>Посетители</Link>
+          <Link to={"/booksTaken"}>Список взятых книг</Link>
         </div>
       ) : (
         <div className="LoginForm">

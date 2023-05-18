@@ -16,6 +16,7 @@ import { getWordByDigit } from "../String";
 export const ListBooksTaken = () => {
   const [nameBook, setNameBook] = useState("");
   const [nameReader, setNameReader] = useState("");
+  const [dateTaken, setDateTaken] = useState("");
 
   const [data, setData] = useState([]);
   const [dataPeople, setDataPeople] = useState([]);
@@ -43,6 +44,7 @@ export const ListBooksTaken = () => {
     const res = await addDoc(collection(db, "listBooksTaken"), {
       nameBook: { nameBook },
       nameReader: { nameReader },
+      dateTaken: { dateTaken },
       timeStamp: serverTimestamp(),
     });
     setData([
@@ -51,6 +53,7 @@ export const ListBooksTaken = () => {
         id: res.id,
         nameBook: { nameBook },
         nameReader: { nameReader },
+        dateTaken: { dateTaken },
         timeStamp: serverTimestamp(),
       },
     ]);
@@ -64,7 +67,7 @@ export const ListBooksTaken = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let list = [];
+      const list = [];
       const querySnapshot = await getDocs(collection(db, "listBooksTaken"));
       querySnapshot.forEach((doc) => {
         list.push({ id: doc.id, ...doc.data() });
@@ -118,6 +121,12 @@ export const ListBooksTaken = () => {
           onChange={(e) => setNameReader(e.target.value)}
           placeholder="Фамилия читателя"
         />
+        <input
+          type="date"
+          value={dateTaken}
+          onChange={(e) => setDateTaken(e.target.value)}
+          placeholder="Дата выдачи"
+        />
 
         <button type="submit">Добавить</button>
       </form>
@@ -125,9 +134,10 @@ export const ListBooksTaken = () => {
         <div key={index}>
           <li>
             Название книги: {item.nameBook.nameBook} | Фамилия читателя:{" "}
-            {item.nameReader.nameReader}
+            {item.nameReader.nameReader} | Дата выдачи:{" "}
+            {item.dateTaken.dateTaken}
+            <button onClick={() => handleDelete(item.id)}>Удалить</button>
           </li>
-          <button onClick={() => handleDelete(item.id)}>Удалить</button>
         </div>
       ))}
 
@@ -144,8 +154,6 @@ export const ListBooksTaken = () => {
       ))}
 
       <Link to={"/"}>Главная</Link>
-
-      <button onClick={() => console.log(getCount())} children={"test"} />
 
       {Object.keys(getCount()).map((key, index) => (
         <li key={index}>

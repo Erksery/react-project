@@ -1,0 +1,63 @@
+.Home-container{
+    display: flex;
+    flex-direction: row;
+}
+.Home-container .Home{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 260px;
+}
+
+.Home-container .Home .NamePage-container{
+    display: flex;
+    align-items: center;
+    height: 70px;
+
+    padding-left: 30px;
+}
+
+.Home-container .Home .Widgets-container{
+    display: flex;
+    align-items: center;
+    height: 190px;
+
+    padding: 10px;
+}
+.Home-container .Home .Widgets-container .Widget{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex: 1;
+    height: 100%;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 15px;
+    color: #838383;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+}
+
+.Home-container .Home .Widgets-container .Widget .info h2, h1{
+    font-weight: normal;
+}
+
+.Home-container .Home .Widgets-container .Widget .info a{
+    margin: 0;
+}
+
+
+.Home-container .Home .Widgets-container .Widget .icon{
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    width: 60%;
+}
+
+.Home-container .Home .Widgets-container .Widget .icon svg{
+    background-color: rgba(255, 165, 0, 0.69);
+    color: darkorange;
+    border-radius: 10px;
+    padding: 7px;
+}
+

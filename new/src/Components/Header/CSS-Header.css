@@ -1,0 +1,13 @@
+.Header-container{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background-color: #f4f5f7;
+}
+
+.Header-container .Header-Profile-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+}

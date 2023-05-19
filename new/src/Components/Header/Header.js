@@ -27,8 +27,8 @@ export function Header() {
           </div>
         ) : (
           <div className="LoginForm">
-            <Link to={"/register"}>Register</Link>
-            <Link to={"/login"}>Login</Link>
+            <Link to={"/register"}>Регистрация</Link>
+            <Link to={"/login"}>Войти</Link>
           </div>
         )}
       </div>

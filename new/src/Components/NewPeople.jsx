@@ -49,8 +49,6 @@ export const NewPeople = () => {
         timeStamp: serverTimestamp(),
       },
     ]);
-    // console.log(111, res);
-    // console.log(res._key.path.length);
   };
 
   const handleDelete = async (id) => {
@@ -67,16 +65,9 @@ export const NewPeople = () => {
         list.push({ id: doc.id, ...doc.data() });
       });
       setData(list);
-      // console.log(1, list);
-      // setTimeout(() => console.log(2, data), 2000);
     };
     fetchData();
   }, []);
-
-  // for (let item of data) {
-  //   // console.log(item.id);
-  //   console.log(item);
-  // }
 
   return (
     <div>

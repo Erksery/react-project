@@ -1,27 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import useAuth from "../../Hooks/use-auth";
-import { removeUser } from "../../store/slice/userSlices";
-import { New } from "../../Components/New";
-import { Icon28BookOutline } from "@vkontakte/icons";
-import { Icon56BookmarkOutline } from "@vkontakte/icons";
-import { Icon56Users3Outline } from "@vkontakte/icons";
-import { Icon56NotebookCheckOutline } from "@vkontakte/icons";
-
+import {
+  Icon56BookmarkOutline,
+  Icon56Users3Outline,
+  Icon56NotebookCheckOutline,
+} from "@vkontakte/icons";
 import "./CSS-Home.css";
 import { Header } from "../../Components/Header/Header";
 import { SideMenu } from "../../Components/SideMenu/SideMenu";
+import { collection, getDocs, query } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const HomePage = () => {
-  const dispatch = useDispatch();
-  const { isAuth, email } = useAuth();
+  const [data, setData] = useState([]);
+  const [dataPeople, setDataPeople] = useState([]);
+  const [dataBooks, setDataBooks] = useState([]);
 
   const widgetList = [
     {
       link: "/books",
-      text: "Количество кfghghfdниг в библиотеке",
-      quantity: 10,
+      text: "Количество книг в библиотеке",
+      quantity: dataBooks.length,
       icon: (
         <Icon56BookmarkOutline
           style={{
@@ -32,15 +31,15 @@ const HomePage = () => {
       ),
     },
     {
-      link: "/books",
+      link: "/people",
       text: "Количество пользователей",
-      quantity: 10,
+      quantity: dataPeople.length,
       icon: <Icon56Users3Outline />,
     },
     {
-      link: "/books",
+      link: "/booksTaken",
       text: "Количество взятых книг",
-      quantity: 10,
+      quantity: data.length,
       icon: (
         <Icon56NotebookCheckOutline
           style={{
@@ -51,6 +50,46 @@ const HomePage = () => {
       ),
     },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const list = [];
+      const querySnapshot = await getDocs(collection(db, "listBooksTaken"));
+      querySnapshot.forEach((doc) => {
+        list.push({ id: doc.id, ...doc.data() });
+      });
+      setData(list);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchDataBooks = async () => {
+      const listBooks = [];
+      const qa = query(collection(db, "books"));
+
+      const querySnapshot = await getDocs(qa);
+      querySnapshot.forEach((doc) => {
+        listBooks.push({ id: doc.id, ...doc.data() });
+      });
+      setDataBooks(listBooks);
+    };
+    fetchDataBooks();
+  }, []);
+
+  useEffect(() => {
+    const fetchPeopleData = async () => {
+      const listPeople = [];
+      const q = query(collection(db, "people"));
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        listPeople.push({ id: doc.id, ...doc.data() });
+      });
+      setDataPeople(listPeople);
+    };
+    fetchPeopleData();
+  }, []);
   return (
     <div className="Home-container">
       <SideMenu />
@@ -65,7 +104,7 @@ const HomePage = () => {
               <div className="info">
                 <h2>{item.text}</h2>
                 <h1>{item.quantity}</h1>
-                <Link to={"/"}>Подробности</Link>
+                <Link to={item.link}>Подробности</Link>
               </div>
               <div className="icon">{item.icon}</div>
             </div>

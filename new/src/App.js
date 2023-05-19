@@ -4,7 +4,7 @@ import HomePage from "./Pages/Home/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import { getDatabase, ref, set } from "firebase/database";
-import { New } from "./Components/New";
+import { New } from "./Components/AddBooks/New";
 import { NewPeople } from "./Components/NewPeople";
 import { ListBooksTaken } from "./Components/ListBooksTaken";
 

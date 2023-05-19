@@ -161,6 +161,7 @@ export const ListBooksTaken = () => {
           {getWordByDigit(getCount()[key], "раз", "раза", "раз")}
         </li>
       ))}
+      <h3>Количество взятых книг: {data.length}</h3>
     </div>
   );
 };

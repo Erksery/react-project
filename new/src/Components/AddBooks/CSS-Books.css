@@ -1,0 +1,146 @@
+.Books-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.Books-container .Books{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 260px;
+}
+
+.Books-container .Books .NamePage-container{
+    display: flex;
+    align-items: center;
+    height: 70px;
+    padding-left: 30px;
+}
+
+.Books-container .Books .ListBooks-container{
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+}
+
+
+.Books-container .Books .ListBooks-container .ModalAddButton{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.3s;
+}
+.Books-container .Books .ListBooks-container .ModalAddButton input{
+    margin: 10px;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+}
+
+.Books-container .Books .ListBooks-container .ModalAddButton input:focus{
+    outline-color: rgba(128, 128, 128, 0.87);
+}
+
+.Books-container .Books .ListBooks-container .ModalAddButton button{
+    height: 50px;
+    font-size: 17px;
+    transition: 0.3s;
+}
+
+.Books-container .Books .ListBooks-container .ModalAddButton button:hover{
+    transform: scale(100%);
+}
+
+.Books-container .Books .ListBooks-container .ModalAddButton .CloseForm-container{
+    display: flex;
+    justify-content: flex-end;
+}
+.Books-container .Books .ListBooks-container .ModalAddButton h1{
+    margin-top: 0;
+}
+
+.Books-container .Books .ListBooks-container .ModalAddButton .CloseForm-container button{
+    margin: 0;
+    background-color: rgba(30,31,34,0);
+    width: 60px;
+    height: 60px;
+}
+
+.Books-container .Books .ListBooks-container .Editor-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+}
+.Books-container .Books .ListBooks-container .Editor-container h3{
+    font-weight: normal;
+}
+
+.Books-container .Books .ListBooks-container .Editor-container .Editor{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.Books-container .Books .ListBooks-container .Editor-container .AddButton{
+    display: flex;
+    flex-direction: row;
+    margin-right: 0;
+    padding: 10px;
+}
+
+.Books-container .Books .ListBooks-container .Editor-container input{
+    padding-left: 10px;
+    border-radius: 7px;
+    font-size: 17px;
+    width: 250px;
+    height: 35px;
+}
+.Books-container .Books .ListBooks-container .Editor-container input:focus{
+    outline-color: rgba(128, 128, 128, 0.87);
+}
+
+
+.Books-container .Books .ListBooks-container .ListBooks .books{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    list-style-type: none;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+}
+
+.Books-container .Books .ListBooks-container .ListBooks .books h2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 5px;
+    color: gray;
+    font-weight: normal;
+}
+
+.Books-container .Books .ListBooks-container .ListBooks .books h2 button{
+    color: rgba(128, 128, 128, 0.76);
+    background-color: rgba(225, 225, 225, 0.44);
+    transition: 0.2s;
+}
+.Books-container .Books .ListBooks-container .ListBooks .books h2 button:hover{
+    color: black;
+    background-color: rgba(225, 225, 225, 0.96);
+}
+.Books-container .Books .ListBooks-container .ListBooks .books h3{
+    margin: 5px;
+    font-weight: normal;
+}

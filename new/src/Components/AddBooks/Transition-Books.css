@@ -1,0 +1,21 @@
+.ModalAddButton.entering{
+    transform: scale(100%) translate(-50%, -50%) ;
+    opacity: 1;
+}
+
+.ModalAddButton.entered{
+    transform: scale(100%) translate(-50%, -50%);
+    opacity: 1;
+}
+
+.ModalAddButton.exiting{
+    transform: scale(90%) translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.ModalAddButton.exited{
+    transform: scale(90%) translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+}

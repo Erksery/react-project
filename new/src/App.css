@@ -3,16 +3,17 @@
 }
 
 button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     border: none;
     border-radius: 5px;
     margin: 10px;
     padding: 10px;
 }
-button:active{
-    color: white;
-    background-color: black;
-}
+
 
 input{
     border: solid 2px lightgray;
@@ -41,4 +42,9 @@ a{
 }
 ::-webkit-scrollbar-thumb:hover{
     background-color: #a8a8a8;
+}
+
+strong{
+    font-weight: normal;
+    color: gray;
 }

@@ -1,0 +1,199 @@
+.ListBooksTaken-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.ListBooksTaken-container .ListBooks{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 260px;
+}
+
+.ListBooksTaken-container .ListBooks .NamePage-container{
+    display: flex;
+    align-items: center;
+    height: 70px;
+    padding-left: 30px;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken{
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+}
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .info .InfoModal-container{
+    position: absolute;
+    top: 14%;
+    left: 41.5%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: white;
+    border: solid 2px rgba(211, 211, 211, 0.39);
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    transition: 0.2s;
+}
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .info .InfoModal-container li{
+    list-style-type: none;
+}
+
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .info button{
+    margin: 0 10px;
+    height: 40px;
+    color: gray;
+}
+
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container h3{
+    font-weight: normal;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .Editor{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .Editor .AddTakenBooks{
+    display: flex;
+    flex-direction: row;
+    margin-right: 0;
+    padding: 10px;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .Editor input{
+    padding-left: 10px;
+    border-radius: 7px;
+    font-size: 17px;
+    width: 250px;
+    height: 35px;
+}
+.ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .Editor input:focus{
+    outline-color: rgba(128, 128, 128, 0.87);
+}
+
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    list-style-type: none;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 5px;
+    color: gray;
+    font-weight: normal;
+}
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 button{
+    color: rgba(128, 128, 128, 0.76);
+    background-color: rgba(225, 225, 225, 0.44);
+    transition: 0.2s;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 button:hover{
+    color: black;
+    background-color: rgba(225, 225, 225, 0.96);
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h3{
+    margin: 5px;
+    font-weight: normal;
+}
+
+.ModalAddTakenBooks{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.3s;
+}
+.ModalAddTakenBooks h1{
+    margin-top: 0;
+}
+
+.ModalAddTakenBooks button{
+    height: 50px;
+    font-size: 17px;
+    transition: 0.3s;
+}
+.ModalAddTakenBooks .InputModal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+
+.ModalAddTakenBooks .InputModal input{
+    width: 100%;
+    margin: 10px 0 10px 10px;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+}
+.ModalAddTakenBooks .InputModal button{
+    margin: 5px;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+}
+
+.ModalAddTakenBooks input{
+    margin: 10px;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+}
+
+.ModalAddTakenBooks input:focus{
+    outline-color: rgba(128, 128, 128, 0.87);
+}
+.ModalAddTakenBooks .CloseForm-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ModalAddTakenBooks .CloseForm-container button{
+    margin: 0;
+    background-color: rgba(30,31,34,0);
+    width: 60px;
+    height: 60px;
+}
+
+
+
+

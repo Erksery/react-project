@@ -1,0 +1,43 @@
+.ModalAddTakenBooks.entering{
+    transform: scale(100%) translate(-50%, -50%) ;
+    opacity: 1;
+}
+
+.ModalAddTakenBooks.entered{
+    transform: scale(100%) translate(-50%, -50%);
+    opacity: 1;
+}
+
+.ModalAddTakenBooks.exiting{
+    transform: scale(90%) translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.ModalAddTakenBooks.exited{
+    transform: scale(90%) translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.InfoModal-container{
+    opacity: 1;
+}
+
+.InfoModal-container.entering{
+    opacity: 1;
+}
+
+.InfoModal-container.entered{
+    opacity: 1;
+}
+
+.InfoModal-container.exiting{
+    visibility: hidden;
+    opacity: 0;
+}
+
+.InfoModal-container.exited{
+    visibility: hidden;
+    opacity: 0;
+}

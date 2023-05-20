@@ -79,7 +79,7 @@ export const New = () => {
             position: "fixed",
             height: "100vh",
             width: "100%",
-            background: "rgba(0,0,0, 0.10)",
+            background: "rgba(0,0,0, 0.30)",
             zIndex: 100,
           }}
         />

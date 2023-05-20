@@ -5,8 +5,8 @@ import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import { getDatabase, ref, set } from "firebase/database";
 import { New } from "./Components/AddBooks/New";
-import { NewPeople } from "./Components/NewPeople";
-import { ListBooksTaken } from "./Components/ListBooksTaken";
+import { NewPeople } from "./Components/AddVisitor/NewPeople";
+import { ListBooksTaken } from "./Components/ListBooksTaken/ListBooksTaken";
 
 function App() {
   return (

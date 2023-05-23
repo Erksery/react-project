@@ -146,7 +146,7 @@
 }
 
 .ModalAddTakenBooks button{
-    height: 50px;
+    height: 44px;
     font-size: 17px;
     transition: 0.3s;
 }
@@ -165,7 +165,7 @@
     font-size: 17px;
     border-radius: 10px;
 }
-.ModalAddTakenBooks .InputModal button{
+.ModalAddTakenBooks .InputModal .CloseButton{
     margin: 5px;
     padding: 0;
     width: 44px;
@@ -192,6 +192,35 @@
     background-color: rgba(30,31,34,0);
     width: 60px;
     height: 60px;
+}
+
+.DropModal{
+    position: relative;
+}
+
+.Modal{
+    position: absolute;
+    display: flex;
+    justify-content: stretch;
+    flex-direction: column;
+    width: 299px;
+    max-height: 200px;
+    border-radius: 10px;
+    right: 0;
+    background-color: white;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    overflow: auto;
+    z-index: 9999;
+}
+
+.Modal .ModalHelp-button{
+    margin: 5px;
+    background-color: rgba(0,0,0,0);
+}
+
+.Modal .ModalHelp-button:hover{
+    background-color: rgba(224, 224, 224, 0.51);
 }
 
 

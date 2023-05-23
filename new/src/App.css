@@ -2,6 +2,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+*::selection{
+    background: rgba(131, 131, 131, 0.38);
+}
+
 button{
     display: flex;
     flex-direction: row;

@@ -29,6 +29,7 @@ export const ListBooksTaken = () => {
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
+  const [openHelpTwo, setOpenHelpTwo] = useState(false)
 
   const [nameBook, setNameBook] = useState("");
   const [nameReader, setNameReader] = useState("");
@@ -196,18 +197,33 @@ export const ListBooksTaken = () => {
                 </div>
                 <h1>Добавить взятую книгу</h1>
                 <div className="InputModal">
+
                   <input
                     type="text"
                     value={nameBook}
                     onChange={(e) => setNameBook(e.target.value)}
                     placeholder="Название книги"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setOpenHelp((prev) => !prev)}
-                  >
-                    <Icon24Dropdown />
-                  </button>
+                  <div className="DropModal">
+                    <button
+                        type="button"
+                        onClick={() => setOpenHelpTwo((prev) => !prev)}
+                    >
+                      <Icon24Dropdown />
+                    </button>
+                    {openHelpTwo &&
+                        <div className="Modal">
+                          {dataBooks.map((item, index) => (
+                              <button type="button" className="ModalHelp-button" onClick={() => {
+                                setOpenHelpTwo(false)
+                                setNameBook(item.name.name)
+                              }} key={index}>
+                                {item.name.name}
+                              </button>
+                          ))}
+                        </div>
+                    }
+                  </div>
                 </div>
 
                 <div className="InputModal">
@@ -217,13 +233,27 @@ export const ListBooksTaken = () => {
                     onChange={(e) => setNameReader(e.target.value)}
                     placeholder="Фамилия читателя"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setOpenHelp((prev) => !prev)}
-                  >
-                    <Icon24Dropdown />
-                  </button>
-                </div>
+                  <div className="DropModal">
+                    <button
+                        type="button"
+                        onClick={() => setOpenHelp((prev) => !prev)}
+                    >
+                      <Icon24Dropdown />
+                    </button>
+
+                    {openHelp &&
+                        <div className="Modal">
+                          {dataPeople.map((item, index) => (
+                              <button type="button" className="ModalHelp-button" onClick={() => {
+                                setOpenHelp(false)
+                                setNameReader(item.name.name)
+                              }} key={index}>
+                                Посетитель: {item.name.name}
+                              </button>
+                          ))}
+                        </div>}
+                        </div>
+                  </div>
 
                 <input
                   type="date"
@@ -257,18 +287,6 @@ export const ListBooksTaken = () => {
                 </h3>
               </li>
             </div>
-          ))}
-
-          {dataPeople.map((item, index) => (
-            <button onClick={() => setNameReader(item.name.name)} key={index}>
-              Посетитель: {item.name.name}
-            </button>
-          ))}
-
-          {dataBooks.map((item, index) => (
-            <button onClick={() => setNameBook(item.name.name)} key={index}>
-              Книга: {item.name.name}
-            </button>
           ))}
         </div>
       </div>

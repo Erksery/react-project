@@ -287,10 +287,9 @@ export const ListBooksTaken = () => {
 
           {data.map((item, index) => (
             <motion.div
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: 80, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ amount: 0.15 }}
-              transition={1}
+              viewport={{ amount: 0.2 }}
               key={index}
               className="ListTaken"
             >

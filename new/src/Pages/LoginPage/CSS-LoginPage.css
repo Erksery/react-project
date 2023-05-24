@@ -45,6 +45,7 @@
     justify-content: space-around;
     align-items: center;
     width: 90px;
+    margin-left: 0;
     height: 20px;
     background-color: rgba(211,211,211,0);
 }

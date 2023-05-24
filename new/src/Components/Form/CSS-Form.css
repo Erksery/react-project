@@ -1,0 +1,21 @@
+.Form-container{
+    display: flex;
+    flex-direction: column;
+}
+.Form-container input{
+    width: 400px;
+    height: 40px;
+    margin: 5px 0;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.Form-container input:focus{
+    outline-color: rgba(128, 128, 128, 0.87);
+}
+
+.Form-container button{
+    height: 50px;
+    font-size: 17px;
+    margin: 5px 0;
+}

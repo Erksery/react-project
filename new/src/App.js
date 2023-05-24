@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./Pages/Home/HomePage";
-import LoginPage from "./Pages/LoginPage";
+import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import { getDatabase, ref, set } from "firebase/database";
 import { New } from "./Components/AddBooks/New";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/slice/userSlices";
-
+import { setUser } from "../../store/slice/userSlices";
+import "./CSS-Form.css";
 const Form = ({ title, handleClick }) => {
   const dispatch = useDispatch();
 
@@ -9,7 +9,7 @@ const Form = ({ title, handleClick }) => {
   const [pass, setPass] = useState("");
 
   return (
-    <div>
+    <div className="Form-container">
       <input
         type="email"
         value={email}

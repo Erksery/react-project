@@ -38,16 +38,15 @@
 
 .ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .info .InfoModal-container{
     position: absolute;
-    top: 14%;
-    left: 41.5%;
-    transform: translate(-50%, -50%);
     padding: 10px;
+    width: 500px;
     background-color: white;
-    border: solid 2px rgba(211, 211, 211, 0.39);
     border-radius: 10px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     transition: 0.2s;
+    left: 70px;
+    top: 0;
 }
 .ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .info .InfoModal-container li{
     list-style-type: none;
@@ -203,15 +202,16 @@
     display: flex;
     justify-content: stretch;
     flex-direction: column;
-    width: 299px;
+    width: 400px;
     max-height: 200px;
     border-radius: 10px;
-    right: 0;
+    right: 10px;
     background-color: white;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     overflow: auto;
     z-index: 9999;
+    transition: 0.2s;
 }
 
 .Modal .ModalHelp-button{
@@ -221,6 +221,11 @@
 
 .Modal .ModalHelp-button:hover{
     background-color: rgba(224, 224, 224, 0.51);
+}
+
+.DropOpenInfo{
+    position: relative;
+    display: inline-block;
 }
 
 

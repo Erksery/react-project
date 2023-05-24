@@ -24,12 +24,13 @@ import {
   Icon24Dropdown,
 } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
+import { motion } from "framer-motion";
 
 export const ListBooksTaken = () => {
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
-  const [openHelpTwo, setOpenHelpTwo] = useState(false)
+  const [openHelpTwo, setOpenHelpTwo] = useState(false);
 
   const [nameBook, setNameBook] = useState("");
   const [nameReader, setNameReader] = useState("");
@@ -147,26 +148,33 @@ export const ListBooksTaken = () => {
           <div className="Editor-container">
             <div className="info">
               <h3>Количество взятых книг: {data.length}</h3>
-              <button
-                onMouseEnter={() => setOpenInfo((prev) => !prev)}
-                onMouseLeave={() => setOpenInfo(false)}
-              >
-                <Icon28InfoOutline />
-              </button>
+              <div className="DropOpenInfo">
+                <button
+                  onMouseEnter={() => setOpenInfo((prev) => !prev)}
+                  onMouseLeave={() => setOpenInfo(false)}
+                >
+                  <Icon28InfoOutline />
+                </button>
 
-              <Transition in={openInfo} timeout={500}>
-                {(openInfo) => (
-                  <div className={`InfoModal-container ${openInfo}`}>
-                    {Object.keys(getCount()).map((key, index) => (
-                      <li key={index}>
-                        Книга <strong>"{key}"</strong> встречается{" "}
-                        {getCount()[key]}{" "}
-                        {getWordByDigit(getCount()[key], "раз", "раза", "раз")}
-                      </li>
-                    ))}
-                  </div>
-                )}
-              </Transition>
+                <Transition in={openInfo} timeout={500}>
+                  {(openInfo) => (
+                    <div className={`InfoModal-container ${openInfo}`}>
+                      {Object.keys(getCount()).map((key, index) => (
+                        <li key={index}>
+                          Книга <strong>"{key}"</strong> встречается{" "}
+                          {getCount()[key]}{" "}
+                          {getWordByDigit(
+                            getCount()[key],
+                            "раз",
+                            "раза",
+                            "раз"
+                          )}
+                        </li>
+                      ))}
+                    </div>
+                  )}
+                </Transition>
+              </div>
             </div>
 
             <div className="Editor">
@@ -197,7 +205,6 @@ export const ListBooksTaken = () => {
                 </div>
                 <h1>Добавить взятую книгу</h1>
                 <div className="InputModal">
-
                   <input
                     type="text"
                     value={nameBook}
@@ -206,23 +213,28 @@ export const ListBooksTaken = () => {
                   />
                   <div className="DropModal">
                     <button
-                        type="button"
-                        onClick={() => setOpenHelpTwo((prev) => !prev)}
+                      type="button"
+                      onClick={() => setOpenHelpTwo((prev) => !prev)}
                     >
                       <Icon24Dropdown />
                     </button>
-                    {openHelpTwo &&
-                        <div className="Modal">
-                          {dataBooks.map((item, index) => (
-                              <button type="button" className="ModalHelp-button" onClick={() => {
-                                setOpenHelpTwo(false)
-                                setNameBook(item.name.name)
-                              }} key={index}>
-                                {item.name.name}
-                              </button>
-                          ))}
-                        </div>
-                    }
+                    {openHelpTwo && (
+                      <div className="Modal">
+                        {dataBooks.map((item, index) => (
+                          <button
+                            type="button"
+                            className="ModalHelp-button"
+                            onClick={() => {
+                              setOpenHelpTwo(false);
+                              setNameBook(item.name.name);
+                            }}
+                            key={index}
+                          >
+                            {item.name.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -235,25 +247,31 @@ export const ListBooksTaken = () => {
                   />
                   <div className="DropModal">
                     <button
-                        type="button"
-                        onClick={() => setOpenHelp((prev) => !prev)}
+                      type="button"
+                      onClick={() => setOpenHelp((prev) => !prev)}
                     >
                       <Icon24Dropdown />
                     </button>
 
-                    {openHelp &&
-                        <div className="Modal">
-                          {dataPeople.map((item, index) => (
-                              <button type="button" className="ModalHelp-button" onClick={() => {
-                                setOpenHelp(false)
-                                setNameReader(item.name.name)
-                              }} key={index}>
-                                Посетитель: {item.name.name}
-                              </button>
-                          ))}
-                        </div>}
-                        </div>
+                    {openHelp && (
+                      <div className="Modal">
+                        {dataPeople.map((item, index) => (
+                          <button
+                            type="button"
+                            className="ModalHelp-button"
+                            onClick={() => {
+                              setOpenHelp(false);
+                              setNameReader(item.name.name);
+                            }}
+                            key={index}
+                          >
+                            Посетитель: {item.name.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
+                </div>
 
                 <input
                   type="date"
@@ -268,7 +286,14 @@ export const ListBooksTaken = () => {
           </Transition>
 
           {data.map((item, index) => (
-            <div key={index} className="ListTaken">
+            <motion.div
+              initial={{ x: -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ amount: 0.15 }}
+              transition={1}
+              key={index}
+              className="ListTaken"
+            >
               <li className="takenBooks">
                 <h2>
                   Название книги: {item.nameBook.nameBook}
@@ -286,7 +311,7 @@ export const ListBooksTaken = () => {
                   {item.dateTaken.dateTaken}
                 </h3>
               </li>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

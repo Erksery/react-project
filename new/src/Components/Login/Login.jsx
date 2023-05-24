@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Form } from "./Form";
+import { Form } from "../Form/Form";
 import { useDispatch } from "react-redux";
 import { setUser } from "store/slice/userSlices";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import "./CSS-Login.css";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -27,10 +28,10 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="Login-container">
       <Form title="Войти" handleClick={handleLogin} />
       <span>{error}</span>
-    </>
+    </div>
   );
 };
 

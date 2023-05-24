@@ -20,9 +20,6 @@
     opacity: 0;
 }
 
-.InfoModal-container{
-    opacity: 1;
-}
 
 .InfoModal-container.entering{
     opacity: 1;
@@ -39,5 +36,19 @@
 
 .InfoModal-container.exited{
     visibility: hidden;
+    opacity: 0;
+}
+
+.Modal.entering{
+    opacity: 1;
+}
+
+.Modal.entered{
+    opacity: 1;
+}
+.Modal.exiting{
+    opacity: 0;
+}
+.Modal.exited{
     opacity: 0;
 }

@@ -22,15 +22,19 @@ import {
   Icon56DeleteOutlineIos,
   Icon28InfoOutline,
   Icon24Dropdown,
+  Icon28WarningTriangleOutline,
 } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
 import { motion } from "framer-motion";
+import { BooksTakenAnimation } from "../../FramerMotion";
 
 export const ListBooksTaken = () => {
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
   const [openHelpTwo, setOpenHelpTwo] = useState(false);
+  const [openDeleteBook, setOpenDeleteBook] = useState(false);
+  const [cancelZone, setCancelZone] = useState(false);
 
   const [nameBook, setNameBook] = useState("");
   const [nameReader, setNameReader] = useState("");
@@ -138,6 +142,19 @@ export const ListBooksTaken = () => {
         />
       )}
 
+      {openDeleteBook && (
+        <div
+          onClick={() => setOpenDeleteBook(false)}
+          style={{
+            position: "fixed",
+            height: "100vh",
+            width: "100%",
+            background: "rgba(0,0,0, 0.30)",
+            zIndex: 100,
+          }}
+        />
+      )}
+
       <SideMenu />
       <div className="ListBooks">
         <Header />
@@ -214,7 +231,10 @@ export const ListBooksTaken = () => {
                   <div className="DropModal">
                     <button
                       type="button"
-                      onClick={() => setOpenHelpTwo((prev) => !prev)}
+                      onClick={() => {
+                        setOpenHelpTwo((prev) => !prev);
+                        setOpenHelp(false);
+                      }}
                     >
                       <Icon24Dropdown />
                     </button>
@@ -248,7 +268,10 @@ export const ListBooksTaken = () => {
                   <div className="DropModal">
                     <button
                       type="button"
-                      onClick={() => setOpenHelp((prev) => !prev)}
+                      onClick={() => {
+                        setOpenHelp((prev) => !prev);
+                        setOpenHelpTwo(false);
+                      }}
                     >
                       <Icon24Dropdown />
                     </button>
@@ -265,7 +288,7 @@ export const ListBooksTaken = () => {
                             }}
                             key={index}
                           >
-                            Посетитель: {item.name.name}
+                            {item.name.name} ({item.libraryCard.libraryCard})
                           </button>
                         ))}
                       </div>
@@ -286,23 +309,50 @@ export const ListBooksTaken = () => {
           </Transition>
 
           {data.map((item, index) => (
-            <motion.div
-              initial={{ x: 80, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ amount: 0.2 }}
-              key={index}
-              className="ListTaken"
-            >
+            <div key={index} className="ListTaken">
               <li className="takenBooks">
                 <h2>
                   Название книги: {item.nameBook.nameBook}
                   <button
-                    onClick={() => handleDelete(item.id)}
+                    className="DeleteBook"
+                    // }
+                    onClick={() => {
+                      setOpenDeleteBook((prev) => !prev);
+                    }}
                     style={{ height: 40 }}
                   >
                     <Icon56DeleteOutlineIos width={28} />
                     Удалить
                   </button>
+                  <Transition in={openDeleteBook} timeout={500}>
+                    {(openDeleteBook) => (
+                      <div className={`ModalDelete ${openDeleteBook}`}>
+                        <h3>
+                          Удалить
+                          <button onClick={() => setOpenDeleteBook(false)}>
+                            <Icon48CancelOutline />
+                          </button>
+                        </h3>
+                        <div className="Warning-container">
+                          <Icon28WarningTriangleOutline width={56} />
+                          Это приведет к необратимому удалению всех данных,
+                          включая все вложенные данные
+                        </div>
+                        <div className="Warning-button-container">
+                          <button className="CancelButton">Отменить</button>
+                          <button
+                            className="ConfirmButton"
+                            onClick={() => {
+                              handleDelete(item.id);
+                              setOpenDeleteBook(false);
+                            }}
+                          >
+                            Подтвердить
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </Transition>
                 </h2>
                 <h3>
                   <strong> Фамилия читателя: </strong>
@@ -310,7 +360,7 @@ export const ListBooksTaken = () => {
                   {item.dateTaken.dateTaken}
                 </h3>
               </li>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -112,13 +112,13 @@
     color: gray;
     font-weight: normal;
 }
-.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 button{
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 .DeleteBook{
     color: rgba(128, 128, 128, 0.76);
     background-color: rgba(225, 225, 225, 0.44);
     transition: 0.2s;
 }
 
-.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 button:hover{
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 .DeleteBook:hover{
     color: black;
     background-color: rgba(225, 225, 225, 0.96);
 }
@@ -226,6 +226,81 @@
 .DropOpenInfo{
     position: relative;
     display: inline-block;
+}
+
+.ModalDelete{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px;
+    transition: 0.2s;
+    z-index: 200;
+}
+
+.ModalDelete h3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    font-size: 24px;
+}
+
+.ModalDelete h3 button{
+    width: 50px;
+    height: 50px;
+    color: #ababab;
+    background-color: rgba(255, 255, 255, 0);
+    transition: 0.3s;
+}
+
+.ModalDelete h3 button:hover{
+    color: black;
+}
+
+.ModalDelete .Warning-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    margin: 0 30px;
+    padding: 5px;
+    border-radius: 10px;
+    color: #c42828;
+    background-color: rgb(249, 231, 229);
+}
+
+.ModalDelete .Warning-container svg{
+    margin: 0 10px;
+}
+
+.ModalDelete .Warning-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 10px 20px;
+}
+.ModalDelete .Warning-button-container button{
+    font-size: 15px;
+
+}
+.ModalDelete .Warning-button-container .ConfirmButton{
+    color: white;
+    background-color: rgb(209, 47, 47);
+}
+
+
+.ModalDelete .Warning-button-container .ConfirmButton:hover{
+    background-color: rgb(180, 35, 35);
+}
+
+.ModalDelete .Warning-button-container .CancelButton:hover{
+    background-color: #e3e3e3;
 }
 
 

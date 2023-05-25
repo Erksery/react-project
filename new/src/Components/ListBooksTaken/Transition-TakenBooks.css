@@ -20,6 +20,26 @@
     opacity: 0;
 }
 
+.ModalDelete.entering{
+    transform: scale(100%) translate(-50%, -50%);
+    opacity: 1;
+}
+
+.ModalDelete.entered{
+    transform: scale(100%) translate(-50%, -50%);
+    opacity: 1;
+}
+.ModalDelete.exiting{
+    transform: scale(95%) translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+}
+.ModalDelete.exited{
+    transform: scale(95%) translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+}
+
 
 .InfoModal-container.entering{
     opacity: 1;
@@ -52,3 +72,5 @@
 .Modal.exited{
     opacity: 0;
 }
+
+

@@ -36,6 +36,8 @@ export const ListBooksTaken = () => {
   const [openDeleteBook, setOpenDeleteBook] = useState(false);
   const [cancelZone, setCancelZone] = useState(false);
 
+  const [deleteItemId, setDeleteItemId] = useState(null);
+
   const [nameBook, setNameBook] = useState("");
   const [nameReader, setNameReader] = useState("");
   const [dateTaken, setDateTaken] = useState("");
@@ -85,6 +87,7 @@ export const ListBooksTaken = () => {
     await deleteDoc(doc(db, "listBooksTaken", id));
     const newData = data.filter((d) => d.id !== id);
     setData(newData);
+    setDeleteItemId(null);
   };
 
   useEffect(() => {
@@ -315,44 +318,47 @@ export const ListBooksTaken = () => {
                   Название книги: {item.nameBook.nameBook}
                   <button
                     className="DeleteBook"
-                    // }
                     onClick={() => {
-                      setOpenDeleteBook((prev) => !prev);
+                      window.confirm(item.id) && handleDelete(item.id);
+                      // setOpenDeleteBook((prev) => !prev);
                     }}
                     style={{ height: 40 }}
                   >
                     <Icon56DeleteOutlineIos width={28} />
                     Удалить
                   </button>
-                  <Transition in={openDeleteBook} timeout={500}>
-                    {(openDeleteBook) => (
-                      <div className={`ModalDelete ${openDeleteBook}`}>
-                        <h3>
-                          Удалить
-                          <button onClick={() => setOpenDeleteBook(false)}>
-                            <Icon48CancelOutline />
-                          </button>
-                        </h3>
-                        <div className="Warning-container">
-                          <Icon28WarningTriangleOutline width={56} />
-                          Это приведет к необратимому удалению всех данных,
-                          включая все вложенные данные
-                        </div>
-                        <div className="Warning-button-container">
-                          <button className="CancelButton">Отменить</button>
-                          <button
-                            className="ConfirmButton"
-                            onClick={() => {
-                              handleDelete(item.id);
-                              setOpenDeleteBook(false);
-                            }}
-                          >
-                            Подтвердить
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </Transition>
+                  {/*<Transition in={openDeleteBook} timeout={500}>*/}
+                  {/*  {(openDeleteBook) => (*/}
+                  {/*    <div*/}
+                  {/*      key={item.id}*/}
+                  {/*      className={`ModalDelete ${openDeleteBook}`}*/}
+                  {/*    >*/}
+                  {/*      <h3>*/}
+                  {/*        Удалить*/}
+                  {/*        <button onClick={() => setOpenDeleteBook(false)}>*/}
+                  {/*          <Icon48CancelOutline />*/}
+                  {/*        </button>*/}
+                  {/*      </h3>*/}
+                  {/*      <div className="Warning-container">*/}
+                  {/*        <Icon28WarningTriangleOutline width={56} />*/}
+                  {/*        Это приведет к необратимому удалению всех данных,*/}
+                  {/*        включая все вложенные данные*/}
+                  {/*      </div>*/}
+                  {/*      <div className="Warning-button-container">*/}
+                  {/*        <button className="CancelButton">Отменить</button>*/}
+                  {/*        <button*/}
+                  {/*          className="ConfirmButton"*/}
+                  {/*          onClick={() => {*/}
+                  {/*            setDeleteItemId(item.id);*/}
+                  {/*            setOpenDeleteBook(false);*/}
+                  {/*          }}*/}
+                  {/*        >*/}
+                  {/*          {item.id}*/}
+                  {/*        </button>*/}
+                  {/*      </div>*/}
+                  {/*    </div>*/}
+                  {/*  )}*/}
+                  {/*</Transition>*/}
                 </h2>
                 <h3>
                   <strong> Фамилия читателя: </strong>

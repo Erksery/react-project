@@ -103,6 +103,12 @@
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
 }
 
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 .Button-container{
+    display: flex;
+    flex-direction: row;
+}
+
+
 .ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2{
     display: flex;
     justify-content: space-between;
@@ -235,7 +241,7 @@
     width: 650px;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 15px;
     padding: 10px;
     transition: 0.2s;

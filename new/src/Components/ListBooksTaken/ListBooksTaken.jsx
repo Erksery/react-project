@@ -8,8 +8,8 @@ import {
   deleteDoc,
   query,
 } from "firebase/firestore";
-import { db, storage } from "../../firebase";
-import { Link } from "react-router-dom";
+import { db} from "../../firebase";
+
 import { getWordByDigit } from "../../String";
 
 import "./CSS-BooksTaken.css";
@@ -25,16 +25,17 @@ import {
   Icon28WarningTriangleOutline,
 } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
-import { motion } from "framer-motion";
-import { BooksTakenAnimation } from "../../FramerMotion";
+
 
 export const ListBooksTaken = () => {
+  const [modalActive, setModalActive] = useState(0)
+
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
   const [openHelpTwo, setOpenHelpTwo] = useState(false);
   const [openDeleteBook, setOpenDeleteBook] = useState(false);
-  const [cancelZone, setCancelZone] = useState(false);
+
 
   const [deleteItemId, setDeleteItemId] = useState(null);
 
@@ -201,8 +202,7 @@ export const ListBooksTaken = () => {
               <input placeholder="Поиск..." />
               <button
                 className="AddTakenBooks"
-                onClick={() => setOpenAddListBooksTaken((prev) => !prev)}
-              >
+                onClick={() => setOpenAddListBooksTaken((prev) => !prev)}>
                 <Icon24Add />
               </button>
             </div>
@@ -316,49 +316,55 @@ export const ListBooksTaken = () => {
               <li className="takenBooks">
                 <h2>
                   Название книги: {item.nameBook.nameBook}
-                  <button
-                    className="DeleteBook"
-                    onClick={() => {
-                      window.confirm(item.id) && handleDelete(item.id);
-                      // setOpenDeleteBook((prev) => !prev);
-                    }}
-                    style={{ height: 40 }}
-                  >
-                    <Icon56DeleteOutlineIos width={28} />
-                    Удалить
-                  </button>
-                  {/*<Transition in={openDeleteBook} timeout={500}>*/}
-                  {/*  {(openDeleteBook) => (*/}
-                  {/*    <div*/}
-                  {/*      key={item.id}*/}
-                  {/*      className={`ModalDelete ${openDeleteBook}`}*/}
-                  {/*    >*/}
-                  {/*      <h3>*/}
-                  {/*        Удалить*/}
-                  {/*        <button onClick={() => setOpenDeleteBook(false)}>*/}
-                  {/*          <Icon48CancelOutline />*/}
-                  {/*        </button>*/}
-                  {/*      </h3>*/}
-                  {/*      <div className="Warning-container">*/}
-                  {/*        <Icon28WarningTriangleOutline width={56} />*/}
-                  {/*        Это приведет к необратимому удалению всех данных,*/}
-                  {/*        включая все вложенные данные*/}
-                  {/*      </div>*/}
-                  {/*      <div className="Warning-button-container">*/}
-                  {/*        <button className="CancelButton">Отменить</button>*/}
-                  {/*        <button*/}
-                  {/*          className="ConfirmButton"*/}
-                  {/*          onClick={() => {*/}
-                  {/*            setDeleteItemId(item.id);*/}
-                  {/*            setOpenDeleteBook(false);*/}
-                  {/*          }}*/}
-                  {/*        >*/}
-                  {/*          {item.id}*/}
-                  {/*        </button>*/}
-                  {/*      </div>*/}
-                  {/*    </div>*/}
-                  {/*  )}*/}
-                  {/*</Transition>*/}
+                  <div className="Button-container">
+                    <button onClick={() => {
+                      setOpenDeleteBook(prev => !prev)
+                      setModalActive(index)
+                    }}>Редактировать</button>
+                    <button
+                        className="DeleteBook"
+                        onClick={() => {
+                          window.confirm(item.id) && handleDelete(item.id);
+                        }}
+                        style={{ height: 40 }}
+                    >
+                      <Icon56DeleteOutlineIos width={28} />
+                      Удалить
+                    </button>
+                  </div>
+
+                  <Transition in={openDeleteBook} timeout={500}>
+                    {(openDeleteBook) => (
+                      <div
+                        key={item.nameBook.nameBook}
+                        className={`ModalDelete ${openDeleteBook}`}
+                      >
+                        <h3>
+                          Удалить {item[modalActive]}
+                          <button onClick={() => setOpenDeleteBook(false)}>
+                            <Icon48CancelOutline />
+                          </button>
+                        </h3>
+                        <div className="Warning-container">
+                          <Icon28WarningTriangleOutline width={56} />
+                          Это приведет к необратимому удалению всех данных,
+                          включая все вложенные данные
+                        </div>
+                        <div className="Warning-button-container">
+                          <button className="CancelButton" onClick={() => setOpenDeleteBook(false)}>{index}</button>
+                          <button
+                            className="ConfirmButton"
+                            onClick={() => {
+                              handleDelete(item.id);
+                              setOpenDeleteBook(false);
+                            }}
+                          >
+                            {item.id}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </Transition>
                 </h2>
                 <h3>
                   <strong> Фамилия читателя: </strong>

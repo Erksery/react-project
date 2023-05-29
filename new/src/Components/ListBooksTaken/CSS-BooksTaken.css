@@ -39,7 +39,7 @@
 .ListBooksTaken-container .ListBooks .ListBooksTaken .Editor-container .info .InfoModal-container{
     position: absolute;
     padding: 10px;
-    width: 500px;
+    min-width: 400px;
     background-color: white;
     border-radius: 10px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
@@ -108,17 +108,35 @@
     flex-direction: row;
 }
 
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 .Button-container button{
+    height: 40px;
+    margin: 5px 5px;
+    color: rgba(128, 128, 128, 0.76);
+    background-color: rgba(225, 225, 225, 0.44);
+    transition: 0.2s;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 .Button-container button svg{
+    margin: 3px;
+}
+
+.ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 .Button-container button:hover{
+    color: black;
+    background-color: rgba(225, 225, 225, 0.96);
+}
+
 
 .ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     margin: 5px;
     color: gray;
     font-weight: normal;
 }
 .ListBooksTaken-container .ListBooks .ListBooksTaken .ListTaken .takenBooks h2 .DeleteBook{
+    height: 40px;
     color: rgba(128, 128, 128, 0.76);
     background-color: rgba(225, 225, 225, 0.44);
     transition: 0.2s;
@@ -253,7 +271,10 @@
     justify-content: space-between;
     align-items: center;
     margin: 0;
+    color: gray;
     font-size: 24px;
+    font-weight: normal;
+
 }
 
 .ModalDelete h3 button{

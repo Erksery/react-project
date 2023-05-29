@@ -23,25 +23,29 @@ import {
   Icon28InfoOutline,
   Icon24Dropdown,
   Icon28WarningTriangleOutline,
+  Icon28EditOutline
 } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
 
 
 export const ListBooksTaken = () => {
-  const [modalActive, setModalActive] = useState(0)
+
 
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
   const [openHelpTwo, setOpenHelpTwo] = useState(false);
   const [openDeleteBook, setOpenDeleteBook] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false)
 
+  const [modalActive, setModalActive] = useState(0)
 
   const [deleteItemId, setDeleteItemId] = useState(null);
 
   const [nameBook, setNameBook] = useState("");
   const [nameReader, setNameReader] = useState("");
   const [dateTaken, setDateTaken] = useState("");
+  const [itemData, setItemData] = useState("")
 
   const [data, setData] = useState([]);
   const [dataPeople, setDataPeople] = useState([]);
@@ -318,53 +322,28 @@ export const ListBooksTaken = () => {
                   Название книги: {item.nameBook.nameBook}
                   <div className="Button-container">
                     <button onClick={() => {
-                      setOpenDeleteBook(prev => !prev)
-                      setModalActive(index)
-                    }}>Редактировать</button>
+                      setOpenAddListBooksTaken(prev => !prev)
+                      setItemData(item)
+                      setNameReader(item.nameReader.nameReader)
+                      setNameBook(item.nameBook.nameBook)
+                      setDateTaken(item.dateTaken.dateTaken)
+                    }}>
+                      <Icon28EditOutline />
+                    </button>
                     <button
                         className="DeleteBook"
                         onClick={() => {
-                          window.confirm(item.id) && handleDelete(item.id);
+                          // window.confirm(item.id) && handleDelete(item.id);
+                          setOpenDeleteBook(prev => !prev)
+                          setItemData(item)
+                          setModalActive(index)
                         }}
-                        style={{ height: 40 }}
                     >
                       <Icon56DeleteOutlineIos width={28} />
-                      Удалить
                     </button>
                   </div>
 
-                  <Transition in={openDeleteBook} timeout={500}>
-                    {(openDeleteBook) => (
-                      <div
-                        key={item.nameBook.nameBook}
-                        className={`ModalDelete ${openDeleteBook}`}
-                      >
-                        <h3>
-                          Удалить {item[modalActive]}
-                          <button onClick={() => setOpenDeleteBook(false)}>
-                            <Icon48CancelOutline />
-                          </button>
-                        </h3>
-                        <div className="Warning-container">
-                          <Icon28WarningTriangleOutline width={56} />
-                          Это приведет к необратимому удалению всех данных,
-                          включая все вложенные данные
-                        </div>
-                        <div className="Warning-button-container">
-                          <button className="CancelButton" onClick={() => setOpenDeleteBook(false)}>{index}</button>
-                          <button
-                            className="ConfirmButton"
-                            onClick={() => {
-                              handleDelete(item.id);
-                              setOpenDeleteBook(false);
-                            }}
-                          >
-                            {item.id}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </Transition>
+
                 </h2>
                 <h3>
                   <strong> Фамилия читателя: </strong>
@@ -374,6 +353,38 @@ export const ListBooksTaken = () => {
               </li>
             </div>
           ))}
+
+          <Transition in={openDeleteBook} timeout={500}>
+            {(open) => (
+                <div
+                    className={`ModalDelete ${open}`}
+                >
+                  <h3>
+                    Удалить
+                    <button onClick={() => setOpenDeleteBook(false)}>
+                      <Icon48CancelOutline />
+                    </button>
+                  </h3>
+                  <div className="Warning-container">
+                    <Icon28WarningTriangleOutline width={56} />
+                    Это приведет к необратимому удалению всех данных,
+                    включая все вложенные данные
+                  </div>
+                  <div className="Warning-button-container">
+                    <button className="CancelButton" onClick={() => setOpenDeleteBook(false)}>Отмена</button>
+                    <button
+                        className="ConfirmButton"
+                        onClick={() => {
+                          handleDelete(itemData.id);
+                          setOpenDeleteBook(false);
+                        }}
+                    >
+                      Подтвердить
+                    </button>
+                  </div>
+                </div>
+            )}
+          </Transition>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import useAuth from "../../Hooks/use-auth";
 import { removeUser } from "../../store/slice/userSlices";
 import { Link } from "react-router-dom";
+
 export function Header() {
   const dispatch = useDispatch();
   const { isAuth, email } = useAuth();

@@ -8,7 +8,7 @@ import {
   deleteDoc,
   query,
 } from "firebase/firestore";
-import { db} from "../../firebase";
+import { db } from "../../firebase";
 
 import { getWordByDigit } from "../../String";
 
@@ -23,29 +23,37 @@ import {
   Icon28InfoOutline,
   Icon24Dropdown,
   Icon28WarningTriangleOutline,
-  Icon28EditOutline
+  Icon28EditOutline,
+  Icon12Chain,
+  Icon20ColumnsSquare,
 } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
-
+import { Link, Route, Routes } from "react-router-dom";
+import LoginPage from "../../Pages/LoginPage/LoginPage";
+import { useDispatch, useSelector } from "react-redux";
+import { setItemData } from "../../store/slice/userSlices";
 
 export const ListBooksTaken = () => {
-
+  const dispatch = useDispatch();
+  const { itemData } = useSelector((state) => state.item);
 
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
   const [openHelpTwo, setOpenHelpTwo] = useState(false);
   const [openDeleteBook, setOpenDeleteBook] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false);
 
-  const [modalActive, setModalActive] = useState(0)
+  const [modalActive, setModalActive] = useState(0);
 
   const [deleteItemId, setDeleteItemId] = useState(null);
 
   const [nameBook, setNameBook] = useState("");
+
   const [nameReader, setNameReader] = useState("");
   const [dateTaken, setDateTaken] = useState("");
-  const [itemData, setItemData] = useState("")
+
+  // const [itemData, setItemData] = useState("");
 
   const [data, setData] = useState([]);
   const [dataPeople, setDataPeople] = useState([]);
@@ -74,7 +82,6 @@ export const ListBooksTaken = () => {
       nameBook: { nameBook },
       nameReader: { nameReader },
       dateTaken: { dateTaken },
-      timeStamp: serverTimestamp(),
     });
     setData([
       ...data,
@@ -83,7 +90,6 @@ export const ListBooksTaken = () => {
         nameBook: { nameBook },
         nameReader: { nameReader },
         dateTaken: { dateTaken },
-        timeStamp: serverTimestamp(),
       },
     ]);
   };
@@ -206,7 +212,8 @@ export const ListBooksTaken = () => {
               <input placeholder="Поиск..." />
               <button
                 className="AddTakenBooks"
-                onClick={() => setOpenAddListBooksTaken((prev) => !prev)}>
+                onClick={() => setOpenAddListBooksTaken((prev) => !prev)}
+              >
                 <Icon24Add />
               </button>
             </div>
@@ -321,29 +328,43 @@ export const ListBooksTaken = () => {
                 <h2>
                   Название книги: {item.nameBook.nameBook}
                   <div className="Button-container">
-                    <button onClick={() => {
-                      setOpenAddListBooksTaken(prev => !prev)
-                      setItemData(item)
-                      setNameReader(item.nameReader.nameReader)
-                      setNameBook(item.nameBook.nameBook)
-                      setDateTaken(item.dateTaken.dateTaken)
-                    }}>
+                    <Link
+                      onClick={() => dispatch(setItemData(item))}
+                      to={`/items/${item.id}`}
+                      style={{
+                        width: 30,
+                        margin: 5,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "gray",
+                      }}
+                    >
+                      <Icon20ColumnsSquare />
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setOpenAddListBooksTaken((prev) => !prev);
+                        dispatch(setItemData(item));
+                        setNameReader(item.nameReader.nameReader);
+                        setNameBook(item.nameBook.nameBook);
+                        setDateTaken(item.dateTaken.dateTaken);
+                      }}
+                    >
                       <Icon28EditOutline />
                     </button>
                     <button
-                        className="DeleteBook"
-                        onClick={() => {
-                          // window.confirm(item.id) && handleDelete(item.id);
-                          setOpenDeleteBook(prev => !prev)
-                          setItemData(item)
-                          setModalActive(index)
-                        }}
+                      className="DeleteBook"
+                      onClick={() => {
+                        // window.confirm(item.id) && handleDelete(item.id);
+                        setOpenDeleteBook((prev) => !prev);
+                        dispatch(setItemData(item));
+                        setModalActive(index);
+                      }}
                     >
                       <Icon56DeleteOutlineIos width={28} />
                     </button>
                   </div>
-
-
                 </h2>
                 <h3>
                   <strong> Фамилия читателя: </strong>
@@ -356,33 +377,36 @@ export const ListBooksTaken = () => {
 
           <Transition in={openDeleteBook} timeout={500}>
             {(open) => (
-                <div
-                    className={`ModalDelete ${open}`}
-                >
-                  <h3>
-                    Удалить
-                    <button onClick={() => setOpenDeleteBook(false)}>
-                      <Icon48CancelOutline />
-                    </button>
-                  </h3>
-                  <div className="Warning-container">
-                    <Icon28WarningTriangleOutline width={56} />
-                    Это приведет к необратимому удалению всех данных,
-                    включая все вложенные данные
-                  </div>
-                  <div className="Warning-button-container">
-                    <button className="CancelButton" onClick={() => setOpenDeleteBook(false)}>Отмена</button>
-                    <button
-                        className="ConfirmButton"
-                        onClick={() => {
-                          handleDelete(itemData.id);
-                          setOpenDeleteBook(false);
-                        }}
-                    >
-                      Подтвердить
-                    </button>
-                  </div>
+              <div className={`ModalDelete ${open}`}>
+                <h3>
+                  Удалить
+                  <button onClick={() => setOpenDeleteBook(false)}>
+                    <Icon48CancelOutline />
+                  </button>
+                </h3>
+                <div className="Warning-container">
+                  <Icon28WarningTriangleOutline width={56} />
+                  Это приведет к необратимому удалению всех данных, включая все
+                  вложенные данные
                 </div>
+                <div className="Warning-button-container">
+                  <button
+                    className="CancelButton"
+                    onClick={() => setOpenDeleteBook(false)}
+                  >
+                    Отмена
+                  </button>
+                  <button
+                    className="ConfirmButton"
+                    onClick={() => {
+                      handleDelete(itemData.id);
+                      setOpenDeleteBook(false);
+                    }}
+                  >
+                    Подтвердить
+                  </button>
+                </div>
+              </div>
             )}
           </Transition>
         </div>

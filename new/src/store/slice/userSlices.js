@@ -26,5 +26,17 @@ const userSlice = createSlice({
   },
 });
 
+const itemSlice = createSlice({
+  name: "item",
+  initialState: { itemData: "" },
+  reducers: {
+    setItemData: (state, action) => {
+      state.itemData = action.payload;
+    },
+  },
+});
+
 export const { setUser, removeUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { setItemData } = itemSlice.actions;
+export const userReducer = userSlice.reducer;
+export const itemReducer = itemSlice.reducer;

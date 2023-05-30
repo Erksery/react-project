@@ -7,6 +7,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import { New } from "./Components/AddBooks/New";
 import { NewPeople } from "./Components/AddVisitor/NewPeople";
 import { ListBooksTaken } from "./Components/ListBooksTaken/ListBooksTaken";
+import ItemsPage from "./Pages/ItemsPage/ItemsPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/books" element={<New />} />
       <Route path="/people" element={<NewPeople />} />
       <Route path="/booksTaken" element={<ListBooksTaken />} />
+      <Route path="/items/:id" element={<ItemsPage />} />
     </Routes>
   );
 }

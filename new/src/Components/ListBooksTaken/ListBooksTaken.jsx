@@ -31,16 +31,30 @@ import { Transition } from "react-transition-group";
 import { Link, Route, Routes } from "react-router-dom";
 import LoginPage from "../../Pages/LoginPage/LoginPage";
 import { useDispatch, useSelector } from "react-redux";
-import { setItemData } from "../../store/slice/userSlices";
+import { setItemData } from "../../store/slice/itemSlice";
+import {
+  setDateTaken,
+  setNameBook,
+  setNameReader,
+  setOpenAddListBooksTaken,
+  setData,
+} from "../../store/slice/listTakenBooksSlice";
+import Modal from "./Modal/Modal";
 
 export const ListBooksTaken = () => {
   const dispatch = useDispatch();
   const { itemData } = useSelector((state) => state.item);
 
-  const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
+  const openAddListBooksTaken = useSelector(
+    (state) => state.listTakenBooks.openAddListBooksTaken
+  );
+  const nameBook = useSelector((state) => state.listTakenBooks.nameBook);
+  const nameReader = useSelector((state) => state.listTakenBooks.nameReader);
+  const dateTaken = useSelector((state) => state.listTakenBooks.dateTaken);
+  const data = useSelector((state) => state.listTakenBooks.data);
+
   const [openInfo, setOpenInfo] = useState(false);
-  const [openHelp, setOpenHelp] = useState(false);
-  const [openHelpTwo, setOpenHelpTwo] = useState(false);
+
   const [openDeleteBook, setOpenDeleteBook] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
 
@@ -48,14 +62,13 @@ export const ListBooksTaken = () => {
 
   const [deleteItemId, setDeleteItemId] = useState(null);
 
-  const [nameBook, setNameBook] = useState("");
-
-  const [nameReader, setNameReader] = useState("");
-  const [dateTaken, setDateTaken] = useState("");
-
+  // const [nameBook, setNameBook] = useState("");
+  // const [nameReader, setNameReader] = useState("");
+  // const [dateTaken, setDateTaken] = useState("");
   // const [itemData, setItemData] = useState("");
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+
   const [dataPeople, setDataPeople] = useState([]);
   const [dataBooks, setDataBooks] = useState([]);
 
@@ -76,28 +89,10 @@ export const ListBooksTaken = () => {
     return dublicates;
   };
 
-  const handleAdd = async (e) => {
-    e.preventDefault();
-    const res = await addDoc(collection(db, "listBooksTaken"), {
-      nameBook: { nameBook },
-      nameReader: { nameReader },
-      dateTaken: { dateTaken },
-    });
-    setData([
-      ...data,
-      {
-        id: res.id,
-        nameBook: { nameBook },
-        nameReader: { nameReader },
-        dateTaken: { dateTaken },
-      },
-    ]);
-  };
-
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "listBooksTaken", id));
     const newData = data.filter((d) => d.id !== id);
-    setData(newData);
+    dispatch(setData(newData));
     setDeleteItemId(null);
   };
 
@@ -108,7 +103,7 @@ export const ListBooksTaken = () => {
       querySnapshot.forEach((doc) => {
         list.push({ id: doc.id, ...doc.data() });
       });
-      setData(list);
+      dispatch(setData(list));
     };
     fetchData();
   }, []);
@@ -212,115 +207,16 @@ export const ListBooksTaken = () => {
               <input placeholder="Поиск..." />
               <button
                 className="AddTakenBooks"
-                onClick={() => setOpenAddListBooksTaken((prev) => !prev)}
+                onClick={() =>
+                  dispatch(setOpenAddListBooksTaken((prev) => !prev))
+                }
               >
                 <Icon24Add />
               </button>
             </div>
           </div>
 
-          <Transition in={openAddListBooksTaken} timeout={500}>
-            {(openAddListBooksTaken) => (
-              <form
-                onSubmit={handleAdd}
-                className={`ModalAddTakenBooks ${openAddListBooksTaken}`}
-                style={{ zIndex: 200 }}
-              >
-                <div className="CloseForm-container">
-                  <button
-                    type="button"
-                    onClick={() => setOpenAddListBooksTaken(false)}
-                  >
-                    <Icon48CancelOutline />
-                  </button>
-                </div>
-                <h1>Добавить взятую книгу</h1>
-                <div className="InputModal">
-                  <input
-                    type="text"
-                    value={nameBook}
-                    onChange={(e) => setNameBook(e.target.value)}
-                    placeholder="Название книги"
-                  />
-                  <div className="DropModal">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setOpenHelpTwo((prev) => !prev);
-                        setOpenHelp(false);
-                      }}
-                    >
-                      <Icon24Dropdown />
-                    </button>
-                    {openHelpTwo && (
-                      <div className="Modal">
-                        {dataBooks.map((item, index) => (
-                          <button
-                            type="button"
-                            className="ModalHelp-button"
-                            onClick={() => {
-                              setOpenHelpTwo(false);
-                              setNameBook(item.name.name);
-                            }}
-                            key={index}
-                          >
-                            {item.name.name}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="InputModal">
-                  <input
-                    type="text"
-                    value={nameReader}
-                    onChange={(e) => setNameReader(e.target.value)}
-                    placeholder="Фамилия читателя"
-                  />
-                  <div className="DropModal">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setOpenHelp((prev) => !prev);
-                        setOpenHelpTwo(false);
-                      }}
-                    >
-                      <Icon24Dropdown />
-                    </button>
-
-                    {openHelp && (
-                      <div className="Modal">
-                        {dataPeople.map((item, index) => (
-                          <button
-                            type="button"
-                            className="ModalHelp-button"
-                            onClick={() => {
-                              setOpenHelp(false);
-                              setNameReader(item.name.name);
-                            }}
-                            key={index}
-                          >
-                            {item.name.name} ({item.libraryCard.libraryCard})
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <input
-                  type="date"
-                  value={dateTaken}
-                  onChange={(e) => setDateTaken(e.target.value)}
-                  placeholder="Дата выдачи"
-                />
-
-                <button type="submit">Добавить</button>
-              </form>
-            )}
-          </Transition>
+          <Modal />
 
           {data.map((item, index) => (
             <div key={index} className="ListTaken">
@@ -344,11 +240,11 @@ export const ListBooksTaken = () => {
                     </Link>
                     <button
                       onClick={() => {
-                        setOpenAddListBooksTaken((prev) => !prev);
+                        dispatch(setOpenAddListBooksTaken((prev) => !prev));
                         dispatch(setItemData(item));
-                        setNameReader(item.nameReader.nameReader);
-                        setNameBook(item.nameBook.nameBook);
-                        setDateTaken(item.dateTaken.dateTaken);
+                        dispatch(setNameReader(item.nameReader.nameReader));
+                        dispatch(setNameBook(item.nameBook.nameBook));
+                        dispatch(setDateTaken(item.dateTaken.dateTaken));
                       }}
                     >
                       <Icon28EditOutline />

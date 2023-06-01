@@ -21,6 +21,7 @@ import {
   Icon56DeleteOutlineIos,
 } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
+import { getPeople } from "../../dataController";
 
 export const NewPeople = () => {
   const [name, setName] = useState("");
@@ -70,16 +71,13 @@ export const NewPeople = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      let list = [];
-      const querySnapshot = await getDocs(collection(db, "people"));
-      querySnapshot.forEach((doc) => {
-        list.push({ id: doc.id, ...doc.data() });
-      });
-      setData(list);
-    };
-    fetchData();
+    fetchPeopleData();
   }, []);
+
+  async function fetchPeopleData() {
+    const people = await getPeople();
+    setData(people);
+  }
 
   return (
     <div className="Visitor-container">

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  openAddListBooksTaken: false,
   nameBook: "",
   nameReader: "",
   dateTaken: "",
@@ -12,9 +11,6 @@ const listTakenBooksSlice = createSlice({
   name: "listTakenBooks",
   initialState,
   reducers: {
-    setOpenAddListBooksTaken: (state, action) => {
-      state.openAddListBooksTaken = action.payload;
-    },
     setNameBook: (state, action) => {
       state.nameBook = action.payload;
     },
@@ -30,12 +26,7 @@ const listTakenBooksSlice = createSlice({
   },
 });
 
-export const {
-  setOpenAddListBooksTaken,
-  setNameBook,
-  setDateTaken,
-  setNameReader,
-  setData,
-} = listTakenBooksSlice.actions;
+export const { setNameBook, setDateTaken, setNameReader, setData } =
+  listTakenBooksSlice.actions;
 
 export const listTakenReducer = listTakenBooksSlice.reducer;

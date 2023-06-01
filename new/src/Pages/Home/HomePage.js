@@ -10,6 +10,8 @@ import { Header } from "../../Components/Header/Header";
 import { SideMenu } from "../../Components/SideMenu/SideMenu";
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
+import { getBooks, getPeople, getTakenBooks } from "../../dataController";
+import { setData } from "../../store/slice/listTakenBooksSlice";
 
 const HomePage = () => {
   const [data, setData] = useState([]);
@@ -52,44 +54,24 @@ const HomePage = () => {
   ];
 
   useEffect(() => {
-    const fetchData = async () => {
-      const list = [];
-      const querySnapshot = await getDocs(collection(db, "listBooksTaken"));
-      querySnapshot.forEach((doc) => {
-        list.push({ id: doc.id, ...doc.data() });
-      });
-      setData(list);
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchDataBooks = async () => {
-      const listBooks = [];
-      const qa = query(collection(db, "books"));
-
-      const querySnapshot = await getDocs(qa);
-      querySnapshot.forEach((doc) => {
-        listBooks.push({ id: doc.id, ...doc.data() });
-      });
-      setDataBooks(listBooks);
-    };
-    fetchDataBooks();
-  }, []);
-
-  useEffect(() => {
-    const fetchPeopleData = async () => {
-      const listPeople = [];
-      const q = query(collection(db, "people"));
-
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        listPeople.push({ id: doc.id, ...doc.data() });
-      });
-      setDataPeople(listPeople);
-    };
+    fetchBooks();
+    fetchTakenBooks();
     fetchPeopleData();
   }, []);
+
+  async function fetchBooks() {
+    const books = await getBooks();
+    setDataBooks(books);
+  }
+
+  async function fetchPeopleData() {
+    const people = await getPeople();
+    setDataPeople(people);
+  }
+  async function fetchTakenBooks() {
+    const takenBooks = await getTakenBooks();
+    setData(takenBooks);
+  }
   return (
     <div className="Home-container">
       <SideMenu />

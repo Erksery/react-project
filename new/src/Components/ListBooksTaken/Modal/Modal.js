@@ -3,7 +3,6 @@ import { Icon24Dropdown, Icon48CancelOutline } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setOpenAddListBooksTaken,
   setNameBook,
   setNameReader,
   setDateTaken,
@@ -11,12 +10,10 @@ import {
 } from "../../../store/slice/listTakenBooksSlice";
 import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../../firebase";
-function Modal() {
+import { getBooks, getPeople, getTakenBooks } from "../../../dataController";
+function Modal({ openAddListBooksTaken, setOpenAddListBooksTaken }) {
   const dispatch = useDispatch();
 
-  const openAddListBooksTaken = useSelector(
-    (state) => state.listTakenBooks.openAddListBooksTaken
-  );
   const nameBook = useSelector((state) => state.listTakenBooks.nameBook);
   const nameReader = useSelector((state) => state.listTakenBooks.nameReader);
   const dateTaken = useSelector((state) => state.listTakenBooks.dateTaken);
@@ -35,57 +32,38 @@ function Modal() {
       nameReader: { nameReader },
       dateTaken: { dateTaken },
     });
-    setData([
-      ...data,
-      {
-        id: res.id,
-        nameBook: { nameBook },
-        nameReader: { nameReader },
-        dateTaken: { dateTaken },
-      },
-    ]);
-    console.log("111");
+    dispatch(
+      setData([
+        ...data,
+        {
+          id: res.id,
+          nameBook: { nameBook },
+          nameReader: { nameReader },
+          dateTaken: { dateTaken },
+        },
+      ])
+    );
   };
 
   useEffect(() => {
-    const fetchDataBooks = async () => {
-      const listBooks = [];
-      const qa = query(collection(db, "books"));
-
-      const querySnapshot = await getDocs(qa);
-      querySnapshot.forEach((doc) => {
-        listBooks.push({ id: doc.id, ...doc.data() });
-      });
-      setDataBooks(listBooks);
-    };
-    fetchDataBooks();
-  }, []);
-
-  useEffect(() => {
-    const fetchPeopleData = async () => {
-      const listPeople = [];
-      const q = query(collection(db, "people"));
-
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        listPeople.push({ id: doc.id, ...doc.data() });
-      });
-      setDataPeople(listPeople);
-    };
+    fetchBooks();
+    fetchTakenBooks();
     fetchPeopleData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const list = [];
-      const querySnapshot = await getDocs(collection(db, "listBooksTaken"));
-      querySnapshot.forEach((doc) => {
-        list.push({ id: doc.id, ...doc.data() });
-      });
-      dispatch(setData(list));
-    };
-    fetchData();
-  }, []);
+  async function fetchBooks() {
+    const books = await getBooks();
+    setDataBooks(books);
+  }
+
+  async function fetchPeopleData() {
+    const people = await getPeople();
+    setDataPeople(people);
+  }
+  async function fetchTakenBooks() {
+    const takenBooks = await getTakenBooks();
+    dispatch(setData(takenBooks));
+  }
 
   return (
     <Transition in={openAddListBooksTaken} timeout={500}>
@@ -98,7 +76,7 @@ function Modal() {
           <div className="CloseForm-container">
             <button
               type="button"
-              onClick={() => dispatch(setOpenAddListBooksTaken(false))}
+              onClick={() => setOpenAddListBooksTaken(false)}
             >
               <Icon48CancelOutline />
             </button>

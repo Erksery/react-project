@@ -16,6 +16,7 @@ import { Header } from "../Header/Header";
 import { Icon24Add, Icon56DeleteOutlineIos } from "@vkontakte/icons";
 import { Icon48CancelOutline } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
+import { getBooks } from "../../dataController";
 export const New = () => {
   const [openModalAddBook, setOpenModalAddBook] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -59,16 +60,13 @@ export const New = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      let list = [];
-      const querySnapshot = await getDocs(collection(db, "books"));
-      querySnapshot.forEach((doc) => {
-        list.push({ id: doc.id, ...doc.data() });
-      });
-      setData(list);
-    };
-    fetchData();
+    fetchBooks();
   }, []);
+
+  async function fetchBooks() {
+    const books = await getBooks();
+    setData(books);
+  }
 
   return (
     <div className="Books-container">

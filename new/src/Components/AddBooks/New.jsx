@@ -17,6 +17,7 @@ import { Icon24Add, Icon56DeleteOutlineIos } from "@vkontakte/icons";
 import { Icon48CancelOutline } from "@vkontakte/icons";
 import { Transition } from "react-transition-group";
 import { getBooks } from "../../dataController";
+import { setData } from "../../store/slice/listTakenBooksSlice";
 export const New = () => {
   const [openModalAddBook, setOpenModalAddBook] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -28,6 +29,7 @@ export const New = () => {
   const [numberCopies, setNumberCopies] = useState("");
 
   const [data, setData] = useState([]);
+  const [isOrder, setIsOrder] = useState(true);
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -40,7 +42,6 @@ export const New = () => {
       timeStamp: serverTimestamp(),
     });
     setData([
-      ...data,
       {
         id: res.id,
         name: { name },
@@ -50,6 +51,7 @@ export const New = () => {
         numberCopies: { numberCopies },
         timeStamp: serverTimestamp(),
       },
+      ...data,
     ]);
   };
 
@@ -65,8 +67,32 @@ export const New = () => {
 
   async function fetchBooks() {
     const books = await getBooks();
+    books.sort((a, b) => {
+      if (a.timeStamp > b.timeStamp) {
+        return -1;
+      }
+      if (a.timeStamp < b.timeStamp) {
+        return 1;
+      }
+      return 0;
+    });
     setData(books);
   }
+
+  const handleSortByName = () => {
+    setData(
+      [...data].sort((a, b) => {
+        if (a.timeStamp > b.timeStamp) {
+          return isOrder ? 1 : -1;
+        }
+        if (a.timeStamp < b.timeStamp) {
+          return isOrder ? -1 : 1;
+        }
+        return 0;
+      })
+    );
+    setIsOrder(!isOrder);
+  };
 
   return (
     <div className="Books-container">
@@ -93,6 +119,13 @@ export const New = () => {
           <div className="Editor-container">
             <h3>Количество добавленных книг: {data.length}</h3>
             <div className="Editor">
+              <button
+                onClick={() => {
+                  handleSortByName();
+                }}
+              >
+                {isOrder ? "По убыванию" : "По возрастанию"}
+              </button>
               <input placeholder="Поиск..." />
               <button
                 className="AddButton"

@@ -23,7 +23,7 @@ import {
 } from "../../store/slice/listTakenBooksSlice";
 import Modal from "./Modal/Modal";
 import { getTakenBooks } from "../../dataController";
-import ModalClose from "./ModalClose";
+import ModalClose from "./Modal/ModalClose";
 import ModalDelete from "./Modal/ModalDelete";
 
 export const ListBooksTaken = () => {

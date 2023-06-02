@@ -1,4 +1,10 @@
-import { collection, getDocs, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  limitToLast,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "./firebase";
 
 export async function getBooks() {

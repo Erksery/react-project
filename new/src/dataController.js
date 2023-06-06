@@ -4,6 +4,7 @@ import {
   query,
   limitToLast,
   orderBy,
+  limit,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -31,7 +32,7 @@ export async function getTakenBooks() {
 
 export async function getPeople() {
   const listPeople = [];
-  const q = query(collection(db, "people"));
+  const q = query(collection(db, "people"), limit(1));
 
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {

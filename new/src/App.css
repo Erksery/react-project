@@ -6,6 +6,10 @@
     background: rgba(131, 131, 131, 0.38);
 }
 
+
+html{
+
+}
 button{
     display: flex;
     flex-direction: row;

@@ -49,7 +49,6 @@ export const NewPeople = () => {
       timeStamp: serverTimestamp(),
     });
     setData([
-      ...data,
       {
         id: res.id,
         name: { name },
@@ -61,6 +60,7 @@ export const NewPeople = () => {
         numberHell: { numberHell },
         timeStamp: serverTimestamp(),
       },
+      ...data,
     ]);
   };
 

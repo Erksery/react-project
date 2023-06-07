@@ -20,6 +20,7 @@ import {
   setNameBook,
   setNameReader,
   setData,
+  setCountCopies,
 } from "../../store/slice/listTakenBooksSlice";
 import Modal from "./Modal/Modal";
 import { getTakenBooks } from "../../dataController";
@@ -29,6 +30,7 @@ import ModalDelete from "./Modal/ModalDelete";
 export const ListBooksTaken = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.listTakenBooks.data);
+  const countCopies = useSelector((state) => state.listTakenBooks.countCopies);
 
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
@@ -93,6 +95,7 @@ export const ListBooksTaken = () => {
               <h3>Количество взятых книг: {data.length}</h3>
               <div className="DropOpenInfo">
                 <button
+                  // onClick={() => setOpenInfo((prev) => !prev)}
                   onMouseEnter={() => setOpenInfo((prev) => !prev)}
                   onMouseLeave={() => setOpenInfo(false)}
                 >
@@ -103,7 +106,10 @@ export const ListBooksTaken = () => {
                   {(openInfo) => (
                     <div className={`InfoModal-container ${openInfo}`}>
                       {Object.keys(getCount()).map((key, index) => (
-                        <li key={index}>
+                        <li
+                          key={index}
+                          onClick={() => console.log(getCount()[key], index)}
+                        >
                           Книга <strong>"{key}"</strong> встречается{" "}
                           {getCount()[key]}{" "}
                           {getWordByDigit(
@@ -111,7 +117,8 @@ export const ListBooksTaken = () => {
                             "раз",
                             "раза",
                             "раз"
-                          )}
+                          )}{" "}
+                          {countCopies - getCount()[key]} шт
                         </li>
                       ))}
                     </div>
@@ -178,7 +185,7 @@ export const ListBooksTaken = () => {
                 <h3>
                   <strong> Фамилия читателя: </strong>
                   {item.nameReader.nameReader},<strong> Дата выдачи: </strong>
-                  {item.dateTaken.dateTaken}
+                  {item.dateTaken.dateTaken}, {item.countCopies}
                 </h3>
               </li>
             </div>

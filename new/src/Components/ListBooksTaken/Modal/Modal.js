@@ -7,10 +7,12 @@ import {
   setNameReader,
   setDateTaken,
   setData,
+  setCountCopies,
 } from "../../../store/slice/listTakenBooksSlice";
 import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { getBooks, getPeople, getTakenBooks } from "../../../dataController";
+
 function Modal({ openAddListBooksTaken, setOpenAddListBooksTaken }) {
   const dispatch = useDispatch();
 
@@ -18,12 +20,15 @@ function Modal({ openAddListBooksTaken, setOpenAddListBooksTaken }) {
   const nameReader = useSelector((state) => state.listTakenBooks.nameReader);
   const dateTaken = useSelector((state) => state.listTakenBooks.dateTaken);
   const data = useSelector((state) => state.listTakenBooks.data);
+  const countCopies = useSelector((state) => state.listTakenBooks.countCopies);
 
   const [openHelp, setOpenHelp] = useState(false);
   const [openHelpTwo, setOpenHelpTwo] = useState(false);
 
   const [dataPeople, setDataPeople] = useState([]);
   const [dataBooks, setDataBooks] = useState([]);
+
+  const [count, setCount] = useState(0);
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -108,10 +113,13 @@ function Modal({ openAddListBooksTaken, setOpenAddListBooksTaken }) {
                       onClick={() => {
                         setOpenHelpTwo(false);
                         dispatch(setNameBook(item.name.name));
+                        dispatch(
+                          setCountCopies(item.numberCopies.numberCopies)
+                        );
                       }}
                       key={index}
                     >
-                      {item.name.name}
+                      {item.name.name}({item.numberCopies.numberCopies})
                     </button>
                   ))}
                 </div>
@@ -163,6 +171,8 @@ function Modal({ openAddListBooksTaken, setOpenAddListBooksTaken }) {
             onChange={(e) => dispatch(setDateTaken(e.target.value))}
             placeholder="Дата выдачи"
           />
+
+          <li>{countCopies}</li>
 
           <button type="submit">Добавить</button>
         </form>

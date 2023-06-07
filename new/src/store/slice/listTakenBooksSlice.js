@@ -4,6 +4,7 @@ const initialState = {
   nameBook: "",
   nameReader: "",
   dateTaken: "",
+  countCopies: 0,
   data: [],
 };
 
@@ -23,10 +24,18 @@ const listTakenBooksSlice = createSlice({
     setData: (state, action) => {
       state.data = action.payload;
     },
+    setCountCopies: (state, action) => {
+      state.countCopies = action.payload;
+    },
   },
 });
 
-export const { setNameBook, setDateTaken, setNameReader, setData } =
-  listTakenBooksSlice.actions;
+export const {
+  setNameBook,
+  setDateTaken,
+  setNameReader,
+  setData,
+  setCountCopies,
+} = listTakenBooksSlice.actions;
 
 export const listTakenReducer = listTakenBooksSlice.reducer;

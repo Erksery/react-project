@@ -26,7 +26,7 @@ export const New = () => {
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
-  const [numberCopies, setNumberCopies] = useState("");
+  const [numberCopies, setNumberCopies] = useState(0);
 
   const [data, setData] = useState([]);
   const [isOrder, setIsOrder] = useState(true);

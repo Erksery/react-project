@@ -23,7 +23,7 @@ import {
   setCountCopies,
 } from "../../store/slice/listTakenBooksSlice";
 import Modal from "./Modal/Modal";
-import { getTakenBooks } from "../../dataController";
+import { getBooks, getTakenBooks } from "../../dataController";
 import ModalClose from "./Modal/ModalClose";
 import ModalDelete from "./Modal/ModalDelete";
 
@@ -32,9 +32,12 @@ export const ListBooksTaken = () => {
   const data = useSelector((state) => state.listTakenBooks.data);
   const countCopies = useSelector((state) => state.listTakenBooks.countCopies);
 
+  const [dataBooks, setDataBooks] = useState([]);
   const [openAddListBooksTaken, setOpenAddListBooksTaken] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
   const [openDeleteBook, setOpenDeleteBook] = useState(false);
+
+  const [count, setCount] = useState(0);
 
   const [modalActive, setModalActive] = useState(0);
 
@@ -56,11 +59,32 @@ export const ListBooksTaken = () => {
 
   useEffect(() => {
     fetchTakenBooks();
+    fetchBooks();
   }, []);
 
   async function fetchTakenBooks() {
     const takenBooks = await getTakenBooks();
     dispatch(setData(takenBooks));
+  }
+
+  async function fetchBooks() {
+    const books = await getBooks();
+    setDataBooks(books);
+  }
+
+  function getCountBook(name) {
+    const take = getCount()[name];
+    let book = null;
+
+    dataBooks.forEach((b) => {
+      if (b.name.name === name) {
+        book = b;
+      }
+    });
+
+    if (!book) return 0;
+
+    return book.numberCopies.numberCopies - take;
   }
 
   return (
@@ -95,7 +119,6 @@ export const ListBooksTaken = () => {
               <h3>Количество взятых книг: {data.length}</h3>
               <div className="DropOpenInfo">
                 <button
-                  // onClick={() => setOpenInfo((prev) => !prev)}
                   onMouseEnter={() => setOpenInfo((prev) => !prev)}
                   onMouseLeave={() => setOpenInfo(false)}
                 >
@@ -106,20 +129,19 @@ export const ListBooksTaken = () => {
                   {(openInfo) => (
                     <div className={`InfoModal-container ${openInfo}`}>
                       {Object.keys(getCount()).map((key, index) => (
-                        <li
-                          key={index}
-                          onClick={() => console.log(getCount()[key], index)}
-                        >
-                          Книга <strong>"{key}"</strong> встречается{" "}
-                          {getCount()[key]}{" "}
-                          {getWordByDigit(
-                            getCount()[key],
-                            "раз",
-                            "раза",
-                            "раз"
-                          )}{" "}
-                          {countCopies - getCount()[key]} шт
-                        </li>
+                        <>
+                          <li key={index}>
+                            Книга <strong>"{key}"</strong> встречается{" "}
+                            {getCount()[key]}{" "}
+                            {getWordByDigit(
+                              getCount()[key],
+                              "раз.",
+                              "раза.",
+                              "раз."
+                            )}{" "}
+                            Осталось {getCountBook(key)} книг.
+                          </li>
+                        </>
                       ))}
                     </div>
                   )}
@@ -185,7 +207,7 @@ export const ListBooksTaken = () => {
                 <h3>
                   <strong> Фамилия читателя: </strong>
                   {item.nameReader.nameReader},<strong> Дата выдачи: </strong>
-                  {item.dateTaken.dateTaken}, {item.countCopies}
+                  {item.dateTaken.dateTaken}
                 </h3>
               </li>
             </div>

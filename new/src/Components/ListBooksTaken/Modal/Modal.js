@@ -113,9 +113,6 @@ function Modal({ openAddListBooksTaken, setOpenAddListBooksTaken }) {
                       onClick={() => {
                         setOpenHelpTwo(false);
                         dispatch(setNameBook(item.name.name));
-                        dispatch(
-                          setCountCopies(item.numberCopies.numberCopies)
-                        );
                       }}
                       key={index}
                     >
@@ -171,8 +168,6 @@ function Modal({ openAddListBooksTaken, setOpenAddListBooksTaken }) {
             onChange={(e) => dispatch(setDateTaken(e.target.value))}
             placeholder="Дата выдачи"
           />
-
-          <li>{countCopies}</li>
 
           <button type="submit">Добавить</button>
         </form>
